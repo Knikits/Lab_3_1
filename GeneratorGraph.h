@@ -1,0 +1,4 @@
+#ifndef GENERATORGRAPH_H
+#define GENERATORGRAPH_H
+
+#endif // GENERATORGRAPH_H
