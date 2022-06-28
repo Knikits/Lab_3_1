@@ -4,6 +4,7 @@
 #include "IOCContainer.h"
 #include "qdebug.h"
 #include "QDateTime"
+#include "QtSql"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent)
     QStringList name_column;
     name_column << "Name" << "Size" << "Type" << "Date Modifed";
     ui->tableWidget_2->setHorizontalHeaderLabels(name_column);
-    ui->tableWidget_2->horizontalHeader()->resizeSection(0, 1);
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -47,26 +47,24 @@ void MainWindow::on_pushButton_2_clicked() // при нажатии на кно�
         str = QString::number(size);
         switch(count)
         {
-        case 0:
-            str += "B";
-            break;
-        case 1:
-            str += "KB";
-            break;
-        case 2:
-            str += "MB";
-            break;
-        case 3:
-            str += "GB";
-            break;
-        case 4:
-            str += "TB";
-            break;
+            case 0:
+                str += "B";
+                break;
+            case 1:
+                str += "KB";
+                break;
+            case 2:
+                str += "MB";
+                break;
+            case 3:
+                str += "GB";
+                break;
+            case 4:
+                str += "TB";
+                break;
         }
         ui->tableWidget_2->setItem(ui->tableWidget_2->rowCount() - 1, 1, new QTableWidgetItem(str));
-
         ui->tableWidget_2->setItem(ui->tableWidget_2->rowCount() - 1, 2, new QTableWidgetItem(filesInfo.suffix()));
-
         ui->tableWidget_2->setItem(ui->tableWidget_2->rowCount() - 1, 3, new QTableWidgetItem(filesInfo.lastModified().toString()));
     }
     qDebug() << strs;
@@ -77,3 +75,28 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_tableWidget_2_cellClicked(int row, int column)
+{
+    QString str = QFileDialog::getOpenFileName();
+    QSqlDatabase dateBase = QSqlDatabase::addDatabase("QSQLITE");
+    dateBase.setDatabaseName(str);
+    if (!dateBase.open())
+    {
+        qDebug() << "База данных не может быть открыта!";
+        return;
+    }
+    QSqlQuery query(dateBase);
+
+    QSqlTableModel *model = new QSqlTableModel(this);
+    model->setTable(str);
+
+    if (!query.exec(str))
+    {
+        qDebug() << "Даже селект не получается, я пас.";
+        return;
+    }
+
+    QMap<QString, int> map;
+}
+
