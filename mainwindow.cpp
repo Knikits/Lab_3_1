@@ -91,10 +91,15 @@ void MainWindow::on_tableWidget_2_cellClicked(int row, int column)
     QSqlTableModel *model = new QSqlTableModel(this);
     model->setTable(str);
 
-    if (!query.exec(str))
+    if (!query.exec("SELECT * FROM " + str))
     {
-        qDebug() << "Даже селект не получается, я пас.";
+        qDebug() << "Не получается сборка";
         return;
+    }
+    else
+    {
+        QBarSeries *series = new QBarSeries();
+        QBarSet *set = new QBarSet(query.value(0).toString());
     }
 
     QMap<QString, int> map;
