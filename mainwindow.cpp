@@ -11,11 +11,11 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->tableWidget_2->setColumnCount(4);
+    ui->tableWidget->setColumnCount(4);
 
     QStringList name_column;
     name_column << "Name" << "Size" << "Type" << "Date Modifed";
-    ui->tableWidget_2->setHorizontalHeaderLabels(name_column);
+    ui->tableWidget->setHorizontalHeaderLabels(name_column);
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -23,51 +23,7 @@ void MainWindow::on_pushButton_clicked()
 
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
-/*
-void MainWindow::on_tableWidget_2_cellPressed(int row, int column)
-{
-    ui->tableWidget_2->item(row, column);
-
-    QSqlDatabase dateBase = QSqlDatabase::addDatabase("QSQLITE"); // для активации драйвера используется статический метод
-    dateBase.setDatabaseName("db_name.sqlite");
-    if (!dateBase.open())
-    {
-        qDebug() << "База данных не может быть открыта!";
-        return;
-    }
-    QSqlQuery query(dateBase);
-
-    QSqlTableModel *model = new QSqlTableModel(this);
-    model->setTable(str);
-
-    if (!query.exec("SELECT * FROM " + str))
-    {
-        qDebug() << "Не получается сборка";
-        return;
-    }
-    else
-    {
-        QBarSeries *series = new QBarSeries();
-        QBarSet *set = new QBarSet(query.value(0).toString());
-        int count = 0;
-        while (query.next() && count < 10)
-        {
-            qDebug() << query.value(0).toString() << query.value(1).toInt();
-            count++;
-        }
-        QChart *chart = new QChart();
-        chart->addSeries(series);
-    }
-
-    //QMap<QString, int> map;
-}
-*/
-
-void MainWindow::on_tableWidget_2_cellDoubleClicked(int row, int column)
+void MainWindow::on_pushButton_2_clicked()
 {
     QString strs = QFileDialog::getExistingDirectory(this);
     QDir directory(strs); // QDir обеспечивает доступ к каталогов и их содержимому
@@ -76,13 +32,13 @@ void MainWindow::on_tableWidget_2_cellDoubleClicked(int row, int column)
     for (int i = 0; i < files.size(); i++)
     {
         QFileInfo filesInfo = files.at(i);
-        ui->tableWidget_2->insertRow(ui->tableWidget_2->rowCount());
-        ui->tableWidget_2->setItem(ui->tableWidget_2->rowCount() - 1, 0, new QTableWidgetItem(filesInfo.fileName()));
+        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 0, new QTableWidgetItem(filesInfo.fileName()));
         float size = filesInfo.size();
         int count = 0;
         while (size > 1024)
         {
-            size/=1024;
+            size = size / 1024;
             count++;
         }
         QString str;
@@ -90,25 +46,32 @@ void MainWindow::on_tableWidget_2_cellDoubleClicked(int row, int column)
         switch(count)
         {
             case 0:
-                str += "B";
+                str = str + "B";
                 break;
             case 1:
-                str += "KB";
+                str = str + "KB";
                 break;
             case 2:
-                str += "MB";
+                str = str + "MB";
                 break;
             case 3:
-                str += "GB";
+                str = str + "GB";
                 break;
             case 4:
-                str += "TB";
+                str = str + "TB";
                 break;
         }
-        ui->tableWidget_2->setItem(ui->tableWidget_2->rowCount() - 1, 1, new QTableWidgetItem(str));
-        ui->tableWidget_2->setItem(ui->tableWidget_2->rowCount() - 1, 2, new QTableWidgetItem(filesInfo.suffix()));
-        ui->tableWidget_2->setItem(ui->tableWidget_2->rowCount() - 1, 3, new QTableWidgetItem(filesInfo.lastModified().toString()));
+        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 1, new QTableWidgetItem(str));
+        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 2, new QTableWidgetItem(filesInfo.suffix()));
+        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 3, new QTableWidgetItem(filesInfo.lastModified().toString()));
     }
-    qDebug() << strs;
+
+    //qDebug() << strs;
+
+    // отправляем данные в бд
 }
 
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
