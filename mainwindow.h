@@ -1,6 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "Graph.h"
+#include "GeneratorGraph.h"
+
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QtSql>
@@ -8,6 +11,12 @@
 #include <QChartView>
 #include <QBarSet>
 #include <QBarSeries>
+#include <QPainter>
+#include <QPdfWriter>
+#include <QtPrintSupport/QPrintDialog>
+#include <QtPrintSupport/QPrinter>
+#include <QStyle>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,11 +33,11 @@ public:
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
-    void draft(int row, int column);
-
     void on_tableWidget_cellClicked(int row, int column);
 
 private:
     Ui::MainWindow *ui;
+    QList<Printer*> dataList;
+    QChartView* chartView = nullptr;
 };
 #endif // MAINWINDOW_H

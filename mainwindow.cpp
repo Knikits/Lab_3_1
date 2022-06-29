@@ -7,15 +7,19 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->tableWidget->setColumnCount(4);
-
     QStringList name_column;
     name_column << "Name" << "Size" << "Type" << "Date Modifed";
     ui->tableWidget->setHorizontalHeaderLabels(name_column);
+    connect(ui->pushButton, SIGNAL(clicked()),this,SLOT(createGraph()));
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-
+    if (chartView != nullptr)
+    {
+    GeneratorGraph().PDF(chartView);
+    }
+    else qDebug() << "Ошибка";
 }
 
 void MainWindow::on_pushButton_2_clicked()
@@ -87,11 +91,32 @@ void MainWindow::on_pushButton_2_clicked()
         {
             map.insert(query.value(0).toString(), query.value(1).toInt());
         }
-
+        dataList.append(new Graph());
+        dataList[i]->getData(map);
     }
+}
+
+void MainWindow::on_tableWidget_cellClicked(int row, int column)
+{
+    if (ui->comboBox->currentIndex() == 0)
+    {
+        QBarSeries * series = dataList[row]->BarSeries();
+        chartView = GeneratorGraph().GeneratorBar(series, ui->checkBox->checkState());
+        chartView->setParent(ui->horizontalFrame_2);
+        chartView->show();
+    }
+    else
+    {
+        QPieSeries * series = dataList[row]->PieSeries();
+        chartView = GeneratorGraph().GeneratorPie(series, ui->checkBox->checkState());
+        chartView->setParent(ui->horizontalFrame_2);
+        chartView->show();
+        }
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+

@@ -1,7 +1,6 @@
 #ifndef PRINTER_H
 #define PRINTER_H
 
-#include "DataGraph.h"
 #include <QtCharts>
 #include <QChartView>
 #include <QBarSet>
@@ -13,7 +12,6 @@
 class Printer
 {
 public:
-    DataGraph *date;
     QBarSeries *bar;
     QPieSeries *pie;
     Printer();

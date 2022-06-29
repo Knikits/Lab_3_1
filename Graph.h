@@ -1,9 +1,8 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include "printer.h"
+#include "Printer.h"
 #include <memory>
-
 #include <QAbstractSeries>
 #include <QBarSeries>
 #include <QPieSeries>
