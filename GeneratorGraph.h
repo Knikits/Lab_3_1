@@ -6,6 +6,10 @@
 #include <QBarSet>
 #include <QBarSeries>
 #include <QPieSeries>
+#include <QPainter>
+#include <QPdfWriter>
+#include <QtPrintSupport/QPrintDialog>
+#include <QtPrintSupport/QPrinter>
 
 class GeneratorGraph
 {

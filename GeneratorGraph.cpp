@@ -56,5 +56,15 @@ QChartView* GeneratorGraph::GeneratorPie(QPieSeries * pieS, bool color)
 
 void GeneratorGraph::PDF(QChartView *chView)
 {
-
+    QPrinter printerGrayColor;
+    printerGrayColor.setOutputFormat(QPrinter::PdfFormat);
+    printerGrayColor.setOutputFileName("D:/ChartInPdf.pfpdf");
+    QPainter painterG;
+    if (!painterG.begin(&printerGrayColor))
+    {
+        qDebug() << "###ERROR file not create";
+        return;
+    }
+    chView->render(&painterG);
+    painterG.end();
 }
