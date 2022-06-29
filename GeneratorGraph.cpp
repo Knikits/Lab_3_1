@@ -22,15 +22,36 @@ QChartView* GeneratorGraph::GeneratorBar(QBarSeries * barS, bool color)
         }
     }
     chart->addSeries(barS);
-    chart->setTitle("График");
+    chart->setTitle("График диаграммный");
     chart->setAnimationOptions(QChart::SeriesAnimations);
     QChartView *view = new QChartView(chart);
     return view;
 }
 
-QChartView* GeneratorGraph::GeneratorPie(QPieSeries * barS, bool color)
+QChartView* GeneratorGraph::GeneratorPie(QPieSeries * pieS, bool color)
 {
-
+    QChart* chart = new QChart();
+    if (color) // если график черно-белый
+    {
+        int j = 0;
+        for (auto set : pieS->slices())
+        {
+            set -> setColor(QColor(j,j,j));
+            j = j + 25;
+        }
+    }
+    else // если цветной график
+    {
+        for(auto set : pieS->slices())
+        {
+            set->setColor(QColor(qrand()%256, qrand()%256, qrand()%256));
+        }
+    }
+    chart->addSeries(pieS);
+    chart->setTitle("График круговой");
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    QChartView *view = new QChartView(chart);
+    return view;
 }
 
 void GeneratorGraph::PDF(QChartView *chView)
