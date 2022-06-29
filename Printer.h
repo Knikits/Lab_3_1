@@ -7,6 +7,8 @@
 #include <QBarSet>
 #include <QBarSeries>
 #include <QPieSeries>
+#include <QMap>
+#include <QString>
 
 class Printer
 {

@@ -62,7 +62,7 @@ void GeneratorGraph::PDF(QChartView *chView)
     QPainter painterG;
     if (!painterG.begin(&printerGrayColor))
     {
-        qDebug() << "###ERROR file not create";
+        qDebug() << "PDF файл не создан";
         return;
     }
     chView->render(&painterG);
