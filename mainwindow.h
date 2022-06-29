@@ -26,7 +26,6 @@ private slots:
     void on_tableWidget_2_cellPressed(int row, int column);
 
 private:
-    bool isChartOpen;
     Ui::MainWindow *ui;
 };
 #endif // MAINWINDOW_H

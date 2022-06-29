@@ -10,8 +10,6 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    isChartOpen = false;
-
     ui->setupUi(this);
     ui->tableWidget_2->setColumnCount(4);
 
