@@ -25,19 +25,16 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
-public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
-
 private slots:
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
     void on_tableWidget_cellClicked(int row, int column);
-
+public:
+    MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
 private:
     Ui::MainWindow *ui;
     QList<Printer*> dataList;
-    QChartView* chartView = nullptr;
+    QChartView* chartView;
 };
 #endif // MAINWINDOW_H

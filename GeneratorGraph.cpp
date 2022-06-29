@@ -11,18 +11,18 @@ QChartView* GeneratorGraph::GeneratorBar(QBarSeries * barS, bool color)
         for (auto set : barS->barSets())
         {
             set -> setColor(QColor(j,j,j));
-            j = j + 25;
+            j = j + 10;
         }
     }
     else // если цветной график
     {
         for(auto set : barS->barSets())
         {
-            set->setColor(QColor(qrand()%256, qrand()%256, qrand()%256));
+            set->setColor(QColor(rand()%255, rand()%255, rand()%255));
         }
     }
     chart->addSeries(barS);
-    chart->setTitle("График диаграммный");
+    chart->setTitle("Диаграмма");
     chart->setAnimationOptions(QChart::SeriesAnimations);
     QChartView *view = new QChartView(chart);
     return view;
@@ -37,18 +37,18 @@ QChartView* GeneratorGraph::GeneratorPie(QPieSeries * pieS, bool color)
         for (auto set : pieS->slices())
         {
             set -> setColor(QColor(j,j,j));
-            j = j + 25;
+            j = j + 10;
         }
     }
     else // если цветной график
     {
         for(auto set : pieS->slices())
         {
-            set->setColor(QColor(qrand()%256, qrand()%256, qrand()%256));
+            set->setColor(QColor(rand()%255, rand()%255, rand()%255));
         }
     }
     chart->addSeries(pieS);
-    chart->setTitle("График круговой");
+    chart->setTitle("Круговой график");
     chart->setAnimationOptions(QChart::SeriesAnimations);
     QChartView *view = new QChartView(chart);
     return view;

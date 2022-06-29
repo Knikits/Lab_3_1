@@ -6,18 +6,17 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->tableWidget->setColumnCount(4);
+    ui->tableWidget->setColumnCount(4); // в таблице сразу создаём 4 столбца
     QStringList name_column;
-    name_column << "Name" << "Size" << "Type" << "Date Modifed";
-    ui->tableWidget->setHorizontalHeaderLabels(name_column);
-    connect(ui->pushButton, SIGNAL(clicked()),this,SLOT(createGraph()));
+    name_column << "Name" << "Size" << "Type" << "Date Modifed"; // именуем их
+    ui->tableWidget->setHorizontalHeaderLabels(name_column); // и присваиваем им эти имена
 }
 
 void MainWindow::on_pushButton_clicked()
 {
     if (chartView != nullptr)
     {
-    GeneratorGraph().PDF(chartView);
+        GeneratorGraph().PDF(chartView);
     }
     else qDebug() << "Ошибка";
 }
@@ -103,6 +102,7 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
         QBarSeries * series = dataList[row]->BarSeries();
         chartView = GeneratorGraph().GeneratorBar(series, ui->checkBox->checkState());
         chartView->setParent(ui->horizontalFrame_2);
+        chartView->setGeometry(0, 0, 1000, 500);
         chartView->show();
     }
     else
@@ -110,8 +110,9 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
         QPieSeries * series = dataList[row]->PieSeries();
         chartView = GeneratorGraph().GeneratorPie(series, ui->checkBox->checkState());
         chartView->setParent(ui->horizontalFrame_2);
+        chartView->setGeometry(0, 0, 1000, 500);
         chartView->show();
-        }
+    }
 }
 
 MainWindow::~MainWindow()

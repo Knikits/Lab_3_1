@@ -11,7 +11,7 @@ void Graph::getData(QMap<QString, int> map)
     for (auto elem = map.begin(); elem != map.end(); elem++)
     {
         count++;
-        if (count > 10) break;
+        if (count > 20) break;
         QBarSet* barS = new QBarSet(elem.key());
         pie->append(elem.key(), elem.value());
         category.append(elem.key());

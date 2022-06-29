@@ -2,7 +2,6 @@
 #define GRAPH_H
 
 #include "Printer.h"
-#include <memory>
 #include <QAbstractSeries>
 #include <QBarSeries>
 #include <QPieSeries>
