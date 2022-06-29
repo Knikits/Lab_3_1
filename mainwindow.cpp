@@ -64,11 +64,29 @@ void MainWindow::on_pushButton_2_clicked()
         ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 1, new QTableWidgetItem(str));
         ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 2, new QTableWidgetItem(filesInfo.suffix()));
         ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 3, new QTableWidgetItem(filesInfo.lastModified().toString()));
+
+        //qDebug() << strs;
+
+        // отправляем данные в бд
+        QSqlDatabase dataBase = QSqlDatabase::addDatabase("QSQLITE");
+        dataBase.setDatabaseName(filesInfo.absolutePath() + "/" + filesInfo.fileName());
+        if (!dataBase.open())
+        {
+            qDebug() << filesInfo.absolutePath();
+            return;
+        }
+        QSqlQuery query(dataBase);
+        QString tableName = "";
+        for (int j = 0; filesInfo.fileName()[j] != "."; j++)
+        {
+            tableName = tableName + filesInfo.fileName()[j];
+        }
+        if (!query.exec("SELECT * FROM " + tableName))
+        {
+            qDebug() << "Не возможно сформировать таблицу!";
+            return;
+        }
     }
-
-    //qDebug() << strs;
-
-    // отправляем данные в бд
 }
 
 MainWindow::~MainWindow()
