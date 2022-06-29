@@ -21,6 +21,11 @@ QChartView* GeneratorGraph::GeneratorBar(QBarSeries * barS, bool color)
             set->setColor(QColor(qrand()%256, qrand()%256, qrand()%256));
         }
     }
+    chart->addSeries(barS);
+    chart->setTitle("График");
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+    QChartView *view = new QChartView(chart);
+    return view;
 }
 
 QChartView* GeneratorGraph::GeneratorPie(QPieSeries * barS, bool color)
