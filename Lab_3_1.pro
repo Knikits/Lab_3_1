@@ -22,7 +22,6 @@ HEADERS += \
     DataGraph.h \
     GeneratorGraph.h \
     Graph.h \
-    IOCContainer.h \
     Printer.h \
     mainwindow.h
 

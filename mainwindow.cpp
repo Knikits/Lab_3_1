@@ -1,10 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "QFileDialog"
-#include "IOCContainer.h"
-#include "qdebug.h"
-#include "QDateTime"
-#include <QtSql>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -86,6 +81,13 @@ void MainWindow::on_pushButton_2_clicked()
             qDebug() << "Не возможно сформировать таблицу!";
             return;
         }
+
+        QMap<QString, int> map;
+        while (query.next())
+        {
+            map.insert(query.value(0).toString(), query.value(1).toInt());
+        }
+
     }
 }
 
