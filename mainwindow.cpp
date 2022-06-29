@@ -23,7 +23,51 @@ void MainWindow::on_pushButton_clicked()
 
 }
 
-void MainWindow::on_pushButton_2_clicked() // при нажатии на кнопку, открывается дистрибутив и выбирается папка
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+/*
+void MainWindow::on_tableWidget_2_cellPressed(int row, int column)
+{
+    ui->tableWidget_2->item(row, column);
+
+    QSqlDatabase dateBase = QSqlDatabase::addDatabase("QSQLITE"); // для активации драйвера используется статический метод
+    dateBase.setDatabaseName("db_name.sqlite");
+    if (!dateBase.open())
+    {
+        qDebug() << "База данных не может быть открыта!";
+        return;
+    }
+    QSqlQuery query(dateBase);
+
+    QSqlTableModel *model = new QSqlTableModel(this);
+    model->setTable(str);
+
+    if (!query.exec("SELECT * FROM " + str))
+    {
+        qDebug() << "Не получается сборка";
+        return;
+    }
+    else
+    {
+        QBarSeries *series = new QBarSeries();
+        QBarSet *set = new QBarSet(query.value(0).toString());
+        int count = 0;
+        while (query.next() && count < 10)
+        {
+            qDebug() << query.value(0).toString() << query.value(1).toInt();
+            count++;
+        }
+        QChart *chart = new QChart();
+        chart->addSeries(series);
+    }
+
+    //QMap<QString, int> map;
+}
+*/
+
+void MainWindow::on_tableWidget_2_cellDoubleClicked(int row, int column)
 {
     QString strs = QFileDialog::getExistingDirectory(this);
     QDir directory(strs); // QDir обеспечивает доступ к каталогов и их содержимому
@@ -66,48 +110,5 @@ void MainWindow::on_pushButton_2_clicked() // при нажатии на кно�
         ui->tableWidget_2->setItem(ui->tableWidget_2->rowCount() - 1, 3, new QTableWidgetItem(filesInfo.lastModified().toString()));
     }
     qDebug() << strs;
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
-
-void MainWindow::on_tableWidget_2_cellPressed(int row, int column)
-{
-    ui->tableWidget_2->item(row, column);
-
-    QSqlDatabase dateBase = QSqlDatabase::addDatabase("QSQLITE"); // для активации драйвера используется статический метод
-    dateBase.setDatabaseName("db_name.sqlite");
-    if (!dateBase.open())
-    {
-        qDebug() << "База данных не может быть открыта!";
-        return;
-    }
-    QSqlQuery query(dateBase);
-
-    QSqlTableModel *model = new QSqlTableModel(this);
-    model->setTable(str);
-
-    if (!query.exec("SELECT * FROM " + str))
-    {
-        qDebug() << "Не получается сборка";
-        return;
-    }
-    else
-    {
-        QBarSeries *series = new QBarSeries();
-        QBarSet *set = new QBarSet(query.value(0).toString());
-        int count = 0;
-        while (query.next() && count < 10)
-        {
-            qDebug() << query.value(0).toString() << query.value(1).toInt();
-            count++;
-        }
-        QChart *chart = new QChart();
-        chart->addSeries(series);
-    }
-
-    //QMap<QString, int> map;
 }
 

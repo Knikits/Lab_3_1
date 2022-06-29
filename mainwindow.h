@@ -21,10 +21,7 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-    void on_pushButton_2_clicked();
-
-    void on_tableWidget_2_cellPressed(int row, int column);
-
+    void on_tableWidget_2_cellDoubleClicked(int row, int column);
 private:
     Ui::MainWindow *ui;
 };
