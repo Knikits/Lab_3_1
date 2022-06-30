@@ -18,6 +18,7 @@ public:
     QChartView *GeneratorBar(QBarSeries*, bool); // диаграммы
     QChartView *GeneratorPie(QPieSeries*, bool); // круг
     void PDF(QChartView* chView); // создание pdf
+    //не успел реализовать вывод в JSON
     //void JSON(QChartView* chView);
 };
 

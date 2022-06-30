@@ -33,6 +33,9 @@ QChartView* GeneratorGraph::GeneratorPie(QPieSeries * pieS, bool color)
 {
     //всё аналогично, только делается всё для "пирога"
     QChart* chart = new QChart();
+
+    //chart = gContainer.GetObject...
+
     if (color) // если график черно-белый
     {
         int j = 0;
