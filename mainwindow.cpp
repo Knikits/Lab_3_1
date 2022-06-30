@@ -107,6 +107,7 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column) // при на�
         chartView = GeneratorGraph().GeneratorBar(series, ui->checkBox->checkState());
         chartView->setParent(ui->horizontalFrame_2);
         chartView->setGeometry(0, 0, 1000, 500);
+        //chartView->setGeometry(0, 0, 500, 500);
         chartView->show();
     }
     else
