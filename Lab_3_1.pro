@@ -15,6 +15,7 @@ SOURCES += \
     DataGraph.cpp \
     GeneratorGraph.cpp \
     Graph.cpp \
+    IOCContainer.cpp \
     Printer.cpp \
     main.cpp \
     mainwindow.cpp
