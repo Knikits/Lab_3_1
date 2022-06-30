@@ -15,7 +15,6 @@ SOURCES += \
     DataGraph.cpp \
     GeneratorGraph.cpp \
     Graph.cpp \
-    IOCContainer.cpp \
     Printer.cpp \
     main.cpp \
     mainwindow.cpp
@@ -24,6 +23,7 @@ HEADERS += \
     DataGraph.h \
     GeneratorGraph.h \
     Graph.h \
+    IOCContainer.h \
     Printer.h \
     mainwindow.h
 

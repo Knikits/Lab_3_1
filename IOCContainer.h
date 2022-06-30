@@ -1,3 +1,6 @@
+#ifndef IOCCONTAINER_H
+#define IOCCONTAINER_H
+
 #include <iostream>
 #include <functional>
 #include <cstdlib>
@@ -164,3 +167,6 @@ IOCContainer gContainer;
 //Иницализация не нулевым значением
 
 int IOCContainer::s_typeId = 121;
+
+
+#endif // IOCCONTAINER_H
