@@ -26,15 +26,17 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 private slots:
-    void on_pushButton_clicked();
-    void on_pushButton_2_clicked();
-    void on_tableWidget_cellClicked(int row, int column);
+    void on_pushButton_clicked(); // функция нажатия на кнопку печати
+    void on_pushButton_2_clicked(); // функция нажатия на кнопку выбора папки
+    void on_tableWidget_cellClicked(int row, int column); // функция нажатия на строку таблицы
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 private:
     Ui::MainWindow *ui;
-    QList<Printer*> dataList;
+    //Класс QList - это шаблонный класс, который предоставляет динамический массив.
+    QList<Printer*> dList;
+    //QChartView - это автономный виджет, который может отображать диаграммы.
     QChartView* chartView;
 };
 #endif // MAINWINDOW_H

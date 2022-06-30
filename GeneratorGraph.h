@@ -11,13 +11,13 @@
 #include <QtPrintSupport/QPrintDialog>
 #include <QtPrintSupport/QPrinter>
 
-class GeneratorGraph
+class GeneratorGraph // класс генерации графиков
 {
 public:
-    GeneratorGraph();
-    QChartView *GeneratorBar(QBarSeries*, bool);
-    QChartView *GeneratorPie(QPieSeries*, bool);
-    void PDF(QChartView* chView);
+    GeneratorGraph(); // конструктор класса
+    QChartView *GeneratorBar(QBarSeries*, bool); // диаграммы
+    QChartView *GeneratorPie(QPieSeries*, bool); // круг
+    void PDF(QChartView* chView); // создание pdf
     //void JSON(QChartView* chView);
 };
 

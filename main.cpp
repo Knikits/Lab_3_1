@@ -8,6 +8,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    // на этой основе созданы классы для ПО
     /*
     string type = "TypeGraph";
     string To = "SomePath";

@@ -16,7 +16,7 @@ void MainWindow::on_pushButton_clicked()
 {
     if (chartView != nullptr)
     {
-        GeneratorGraph().PDF(chartView);
+        GeneratorGraph().PDF(chartView); //формируем файл Pdf
     }
     else qDebug() << "Ошибка";
 }
@@ -32,6 +32,7 @@ void MainWindow::on_pushButton_2_clicked()
         QFileInfo filesInfo = files.at(i);
         ui->tableWidget->insertRow(ui->tableWidget->rowCount());
         ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 0, new QTableWidgetItem(filesInfo.fileName()));
+        //далее идёт опрделение размера в виджете в колонке size
         float size = filesInfo.size();
         int count = 0;
         while (size > 1024)
@@ -60,10 +61,10 @@ void MainWindow::on_pushButton_2_clicked()
                 break;
         }
         ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 1, new QTableWidgetItem(str));
-        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 2, new QTableWidgetItem(filesInfo.suffix()));
+        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 2, new QTableWidgetItem(filesInfo.suffix())); // заносим данные
         ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 3, new QTableWidgetItem(filesInfo.lastModified().toString()));
 
-        //qDebug() << strs;
+        //qDebug() << strs; // путь до файла
 
         // отправляем данные в бд
         QSqlDatabase dataBase = QSqlDatabase::addDatabase("QSQLITE");
@@ -77,7 +78,7 @@ void MainWindow::on_pushButton_2_clicked()
         QString tableName = "";
         for (int j = 0; filesInfo.fileName()[j] != "."; j++)
         {
-            tableName = tableName + filesInfo.fileName()[j];
+            tableName = tableName + filesInfo.fileName()[j]; // имя таблицы
         }
         if (!query.exec("SELECT * FROM " + tableName))
         {
@@ -88,18 +89,19 @@ void MainWindow::on_pushButton_2_clicked()
         QMap<QString, int> map;
         while (query.next())
         {
-            map.insert(query.value(0).toString(), query.value(1).toInt());
+            map.insert(query.value(0).toString(), query.value(1).toInt()); // формируем множество данных
         }
-        dataList.append(new Graph());
-        dataList[i]->getData(map);
+        dList.append(new Graph());
+        dList[i]->getData(map);
     }
 }
 
-void MainWindow::on_tableWidget_cellClicked(int row, int column)
+void MainWindow::on_tableWidget_cellClicked(int row, int column) // при нажатии на строку формируем определенный график
 {
     if (ui->comboBox->currentIndex() == 0)
     {
-        QBarSeries * series = dataList[row]->BarSeries();
+        //ДИАГРАММА
+        QBarSeries * series = dList[row]->BarSeries();
         chartView = GeneratorGraph().GeneratorBar(series, ui->checkBox->checkState());
         chartView->setParent(ui->horizontalFrame_2);
         chartView->setGeometry(0, 0, 1000, 500);
@@ -107,7 +109,8 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
     }
     else
     {
-        QPieSeries * series = dataList[row]->PieSeries();
+        //КРУГОВАЯ ДИАГРАММА
+        QPieSeries * series = dList[row]->PieSeries();
         chartView = GeneratorGraph().GeneratorPie(series, ui->checkBox->checkState());
         chartView->setParent(ui->horizontalFrame_2);
         chartView->setGeometry(0, 0, 1000, 500);
@@ -117,7 +120,7 @@ void MainWindow::on_tableWidget_cellClicked(int row, int column)
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+    delete ui; // Деструктор окна
 }
 
 

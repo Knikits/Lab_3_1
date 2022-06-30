@@ -1,21 +1,19 @@
 #include "Graph.h"
 
-Graph::Graph() {}
-
 void Graph::getData(QMap<QString, int> map)
 {
     bar = new QBarSeries();
     pie = new QPieSeries();
     QStringList category;
     int count = 0;
-    for (auto elem = map.begin(); elem != map.end(); elem++)
+    for (auto i = map.begin(); i != map.end(); i++)
     {
-        count++;
-        if (count > 20) break;
-        QBarSet* barS = new QBarSet(elem.key());
-        pie->append(elem.key(), elem.value());
-        category.append(elem.key());
-        *barS << elem.value();
+        if (count > 20) break; // берём первые 20 данных из бд
+        QBarSet* barS = new QBarSet(i.key());
+        pie->append(i.key(), i.value());
+        category.append(i.key());
+        *barS << i.value();
         bar->append(barS);
+        count++;
     }
 }
