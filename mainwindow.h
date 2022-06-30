@@ -1,9 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include "Graph.h"
 #include "GeneratorGraph.h"
-
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QtSql>
